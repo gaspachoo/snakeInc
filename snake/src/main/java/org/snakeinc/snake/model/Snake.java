@@ -8,10 +8,14 @@ import org.snakeinc.snake.exception.SelfCollisionException;
 public class Snake {
 
     private final ArrayList<Cell> body;
+    private final AppleEatenListener onAppleEatenListener;
+    private final Grid grid;
 
-    public Snake() {
-        body = new ArrayList<>();
-        Cell head = Game.getCurrentGame().getGrid().getTile(GameParams.SNAKE_DEFAULT_X, GameParams.SNAKE_DEFAULT_Y);
+    public Snake(AppleEatenListener listener, Grid grid) {
+        this.body = new ArrayList<>();
+        this.onAppleEatenListener = listener;
+        this.grid = grid;
+        Cell head = grid.getTile(GameParams.SNAKE_DEFAULT_X, GameParams.SNAKE_DEFAULT_Y);
         body.add(head);
         head.addSnake(this);
     }
@@ -27,7 +31,7 @@ public class Snake {
     public void eat(Apple apple) {
         body.addFirst(apple.getCell());
         apple.getCell().addSnake(this);
-        Game.getCurrentGame().getBasket().removeApple(apple);
+        onAppleEatenListener.onAppleEaten(apple);
     }
 
     public void move(char direction) throws OutOfPlayException, SelfCollisionException {
@@ -47,7 +51,7 @@ public class Snake {
                 x++;
                 break;
         }
-        Cell newHead = Game.getCurrentGame().getGrid().getTile(x, y);
+        Cell newHead = grid.getTile(x, y);
         if (newHead == null) {
             throw new OutOfPlayException();
         }
