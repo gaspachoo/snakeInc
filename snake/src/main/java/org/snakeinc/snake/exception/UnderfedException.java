@@ -1,8 +1,8 @@
 package org.snakeinc.snake.exception;
 
-public class OutOfPlayException extends Exception {
+public class UnderfedException extends Exception {
 
-    public OutOfPlayException() {
+    public UnderfedException() {
 
     }
 }

@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.snakeinc.snake.exception.OutOfPlayException;
 import org.snakeinc.snake.exception.SelfCollisionException;
-import org.snakeinc.snake.model.AppleFactory;
+import org.snakeinc.snake.model.FruitFactory;
 import org.snakeinc.snake.model.Game;
 import org.snakeinc.snake.GameParams;
 
@@ -13,8 +13,8 @@ public class SnakeTest {
     Game game = new Game();
 
     @Test
-    public void snakeEatApplesAfterMove_ReturnsCorrectBodySize() throws OutOfPlayException, SelfCollisionException {
-        game.getBasket().addApple(game.getGrid().getTile(5, 4));
+    public void snakeEatFruitsAfterMove_ReturnsCorrectBodySize() throws OutOfPlayException, SelfCollisionException {
+        game.getBasket().addFruit(game.getGrid().getTile(5, 4));
         game.getSnake().move('U');
         Assertions.assertEquals(2, game.getSnake().getSize());
     }
@@ -40,7 +40,7 @@ public class SnakeTest {
     void selfCollisionBehaviour() throws OutOfPlayException, SelfCollisionException {
 
         for (int i = 0; i < (GameParams.SNAKE_DEFAULT_Y) ; i++) {
-            game.getBasket().addApple(game.getGrid().getTile(6+i, 5));
+            game.getBasket().addFruit(game.getGrid().getTile(6+i, 5));
             game.getSnake().move('R');
         }
         game.getSnake().move('D');
