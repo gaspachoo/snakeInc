@@ -4,7 +4,6 @@ import lombok.Getter;
 import org.snakeinc.snake.exception.OutOfPlayException;
 import org.snakeinc.snake.exception.SelfCollisionException;
 import org.snakeinc.snake.exception.UnderfedException;
-import org.snakeinc.snake.ui.GamePanel;
 
 import java.util.Random;
 
