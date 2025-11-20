@@ -6,12 +6,13 @@ public class FruitFactory {
 
     public static Fruit createFruitInCell(Cell cell) {
         var random = new Random();
-        var prob = random.nextInt(0,3);
+        var probFruit = random.nextInt(0,3);
+        var probAbnormal = random.nextInt(0,5);
         Fruit fruit;
-        if (prob == 0) {
-            fruit = new Broccoli();
+        if (probFruit == 0) {
+            fruit = new Broccoli(probAbnormal == 0);
         } else {
-            fruit = new Apple();
+            fruit = new Apple(probAbnormal == 0);
         }
 
 

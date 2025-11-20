@@ -28,6 +28,7 @@ public class CellUI {
                 g2.setColor(Color.BLUE.darker());
                 break;
         }
+
         g2.setStroke(new BasicStroke(2));
         g2.drawRect(upperPixelX, upperPixelY, GamePanel.TILE_PIXEL_SIZE, GamePanel.TILE_PIXEL_SIZE);
     }
@@ -39,11 +40,7 @@ public class CellUI {
     public void draw(Graphics g) {
 
         if (cell.containsAnFruit()) {
-            if (cell.getFruit() instanceof Apple){
-                g.setColor(Color.RED);
-            } else {
-                g.setColor(Color.GREEN);
-            }
+            g.setColor(cell.getFruit().getMainColor());
             drawOval(g);
         }
 
