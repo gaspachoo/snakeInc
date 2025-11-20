@@ -1,6 +1,6 @@
 package org.snakeinc.snake.model;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 
 import lombok.Getter;
@@ -18,6 +18,12 @@ public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
     protected Color mainColor;
     @Getter
     protected Color skinColor;
+    @Getter
+    private int moveCount;
+    @Getter
+    private int eatCount;
+    @Getter
+    private int bonusCount;
 
     public enum Direction { U, D, R, L}
 
@@ -25,6 +31,9 @@ public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
         this.body = new ArrayList<>();
         this.onFruitEatenListener = listener;
         this.grid = grid;
+        this.eatCount = 0;
+        this.bonusCount = 0;
+        this.moveCount = 0;
         Cell head = grid.getTile(GameParams.SNAKE_DEFAULT_X, GameParams.SNAKE_DEFAULT_Y);
         Cell mid = grid.getTile(GameParams.SNAKE_DEFAULT_X-1, GameParams.SNAKE_DEFAULT_Y);
         Cell tail = grid.getTile(GameParams.SNAKE_DEFAULT_X-2, GameParams.SNAKE_DEFAULT_Y);
@@ -48,6 +57,7 @@ public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
 
 
     public void move(Direction direction) throws OutOfPlayException, SelfCollisionException, UnderfedException {
+        moveCount++;
         int x = getHead().getX();
         int y = getHead().getY();
         switch (direction) {
@@ -74,6 +84,22 @@ public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
 
         // Eat Fruit :
         if (newHead.containsAnFruit()) {
+            eatCount++;
+            switch (newHead.getFruit()){
+                case Apple apple:
+                    if (!apple.isPoisonous()) {
+                        bonusCount += 2;
+                    }
+                    break;
+                case Broccoli broccoli:
+                    if (!broccoli.isSteamed()) {
+                        bonusCount ++;
+                    }
+                    break;
+                default :
+                    break;
+                }
+
             this.eat(newHead.getFruit(), newHead);
             if (this.getSize()==0){
                 throw new UnderfedException();
@@ -87,6 +113,8 @@ public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
 
         body.getLast().removeSnake();
         body.removeLast();
+
+
 
     }
 
