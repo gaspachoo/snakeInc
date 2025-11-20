@@ -6,7 +6,7 @@ public final class Python extends Snake{
     }
 
     public void eat(Fruit Fruit, Cell cell) {
-imp        switch (cell.getFruit()) {
+        switch (cell.getFruit()) {
             case Apple apple:
                 onFruitEatenListener.onFruitEaten(Fruit, cell);
                 break;
