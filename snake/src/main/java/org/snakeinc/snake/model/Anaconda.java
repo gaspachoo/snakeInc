@@ -1,9 +1,13 @@
 package org.snakeinc.snake.model;
 
+import java.awt.*;
+
 public final class Anaconda extends Snake {
 
     public Anaconda(FruitEatenListener listener, Grid grid) {
         super(listener, grid);
+        this.mainColor = Color.GRAY;
+        this.skinColor = Color.GRAY.darker();
     }
 
     public void eat(Fruit Fruit, Cell cell) {

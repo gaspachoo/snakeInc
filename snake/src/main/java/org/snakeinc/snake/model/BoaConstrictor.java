@@ -1,8 +1,12 @@
 package org.snakeinc.snake.model;
 
+import java.awt.*;
+
 public final class BoaConstrictor extends Snake{
     public BoaConstrictor(FruitEatenListener listener, Grid grid){
         super(listener, grid);
+        this.mainColor = Color.BLUE;
+        this.skinColor = Color.BLUE.darker();
     }
 
     public void eat(Fruit Fruit, Cell cell) {

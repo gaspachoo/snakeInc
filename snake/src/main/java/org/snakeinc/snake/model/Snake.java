@@ -1,6 +1,9 @@
 package org.snakeinc.snake.model;
 
+import java.awt.*;
 import java.util.ArrayList;
+
+import lombok.Getter;
 import org.snakeinc.snake.GameParams;
 import org.snakeinc.snake.exception.OutOfPlayException;
 import org.snakeinc.snake.exception.SelfCollisionException;
@@ -11,6 +14,10 @@ public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
     protected final ArrayList<Cell> body;
     protected final FruitEatenListener onFruitEatenListener;
     private final Grid grid;
+    @Getter
+    protected Color mainColor;
+    @Getter
+    protected Color skinColor;
 
     public enum Direction { U, D, R, L}
 
