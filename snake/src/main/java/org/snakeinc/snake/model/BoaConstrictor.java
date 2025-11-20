@@ -1,6 +1,6 @@
 package org.snakeinc.snake.model;
 
-import java.awt.*;
+import java.awt.Color;
 
 public final class BoaConstrictor extends Snake{
     public BoaConstrictor(FruitEatenListener listener, Grid grid){

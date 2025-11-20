@@ -1,6 +1,6 @@
 package org.snakeinc.snake.model;
 
-import java.awt.*;
+import java.awt.Color;
 
 public final class Python extends Snake{
     public Python(FruitEatenListener listener, Grid grid){

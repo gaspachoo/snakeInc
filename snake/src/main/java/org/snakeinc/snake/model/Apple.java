@@ -1,6 +1,6 @@
 package org.snakeinc.snake.model;
 import lombok.Getter;
-import java.awt.*;
+import java.awt.Color;
 
 public final class Apple extends Fruit {
 
@@ -16,6 +16,5 @@ public final class Apple extends Fruit {
         else {
             this.mainColor = Color.RED;
         }
-
     }
 }
