@@ -19,7 +19,7 @@ public class CellUI {
         Graphics2D g2 = (Graphics2D) g;
         switch(cell.getSnake()){
             case Anaconda anaconda:
-                g2.setColor(Color.GRAY.darker());;
+                g2.setColor(Color.GRAY.darker());
                 break;
             case Python python:
                 g2.setColor(Color.GREEN.darker());
