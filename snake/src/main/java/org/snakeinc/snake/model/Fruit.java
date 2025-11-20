@@ -11,7 +11,6 @@ public abstract sealed class Fruit permits Apple, Broccoli{
 
 
     public Fruit() {
-        this.mainColor = Color.WHITE;
     }
 
 }
