@@ -7,8 +7,20 @@ public final class Anaconda extends Snake {
     }
 
     public void eat(Fruit Fruit, Cell cell) {
-        body.addFirst(cell);
-        cell.addSnake(this);
-        onFruitEatenListener.onFruitEaten(Fruit,cell);
+        switch (cell.getFruit()){
+            case Apple apple:
+                body.addFirst(cell);
+                cell.addSnake(this);
+                onFruitEatenListener.onFruitEaten(Fruit,cell);
+                break;
+            case Broccoli broccoli:
+                for (int j=0; j<2; j++){
+                body.getLast().removeSnake();
+                body.removeLast();
+            }
+                onFruitEatenListener.onFruitEaten(Fruit,cell);
+                break;
+        }
+
     }
 }
