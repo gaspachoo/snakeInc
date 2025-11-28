@@ -16,7 +16,7 @@ import org.snakeinc.snake.exception.OutOfPlayException;
 import org.snakeinc.snake.exception.SelfCollisionException;
 import org.snakeinc.snake.exception.UnderfedException;
 import org.snakeinc.snake.model.Game;
-import org.snakeinc.snake.model.Snake;
+import org.snakeinc.snake.model.snakes.Snake;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
 

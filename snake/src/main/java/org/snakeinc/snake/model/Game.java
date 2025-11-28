@@ -4,6 +4,10 @@ import lombok.Getter;
 import org.snakeinc.snake.exception.OutOfPlayException;
 import org.snakeinc.snake.exception.SelfCollisionException;
 import org.snakeinc.snake.exception.UnderfedException;
+import org.snakeinc.snake.model.snakes.Anaconda;
+import org.snakeinc.snake.model.snakes.BoaConstrictor;
+import org.snakeinc.snake.model.snakes.Python;
+import org.snakeinc.snake.model.snakes.Snake;
 
 import java.util.Random;
 

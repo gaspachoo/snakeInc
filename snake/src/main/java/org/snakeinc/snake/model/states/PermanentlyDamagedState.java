@@ -1,6 +1,6 @@
 package org.snakeinc.snake.model.states;
 
-import org.snakeinc.snake.model.Snake;
+import org.snakeinc.snake.model.snakes.Snake;
 
 public class PermanentlyDamagedState extends SnakeState {
     public PermanentlyDamagedState(Snake snake) {

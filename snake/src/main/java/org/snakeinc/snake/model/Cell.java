@@ -3,6 +3,7 @@ package org.snakeinc.snake.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import org.snakeinc.snake.model.snakes.Snake;
 
 
 @Data

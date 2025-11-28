@@ -1,4 +1,6 @@
-package org.snakeinc.snake.model;
+package org.snakeinc.snake.model.snakes;
+
+import org.snakeinc.snake.model.*;
 
 import java.awt.Color;
 

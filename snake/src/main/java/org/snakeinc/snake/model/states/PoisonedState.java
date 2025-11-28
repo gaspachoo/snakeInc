@@ -1,6 +1,6 @@
 package org.snakeinc.snake.model.states;
 
-import org.snakeinc.snake.model.Snake;
+import org.snakeinc.snake.model.snakes.Snake;
 
 public class PoisonedState extends SnakeState {
     public PoisonedState(Snake snake) {

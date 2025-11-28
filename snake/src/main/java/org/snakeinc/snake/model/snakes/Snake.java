@@ -1,4 +1,4 @@
-package org.snakeinc.snake.model;
+package org.snakeinc.snake.model.snakes;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -8,6 +8,7 @@ import org.snakeinc.snake.GameParams;
 import org.snakeinc.snake.exception.OutOfPlayException;
 import org.snakeinc.snake.exception.SelfCollisionException;
 import org.snakeinc.snake.exception.UnderfedException;
+import org.snakeinc.snake.model.*;
 import org.snakeinc.snake.model.states.GoodHealthState;
 import org.snakeinc.snake.model.states.SnakeState;
 
