@@ -19,11 +19,13 @@ public class Game {
         basket = new Basket(grid);
         basket.refillIfNeeded(3);
         var random = new Random();
-        int type = random.nextInt(0,3);
-        switch (type) {
-            case 0 -> snake = new Anaconda((Fruit, cell) -> basket.removeFruitInCell(Fruit,cell), grid);
-            case 1 -> snake = new Python((Fruit, cell) -> basket.removeFruitInCell(Fruit,cell), grid);
-            default -> snake = new BoaConstrictor((Fruit, cell) -> basket.removeFruitInCell(Fruit,cell), grid);
+        int type = random.nextInt(0,10);
+        if (type == 0) {
+            snake = new BoaConstrictor((Fruit, cell) -> basket.removeFruitInCell(Fruit, cell), grid);
+        } else if (type == 1) {
+            snake = new Python((Fruit, cell) -> basket.removeFruitInCell(Fruit,cell), grid);
+        }
+        else {snake = new Anaconda((Fruit, cell) -> basket.removeFruitInCell(Fruit,cell), grid);
         }
     }
 
