@@ -6,8 +6,8 @@ public class FruitFactory {
 
     public static Fruit createFruitInCell(Cell cell) {
         var random = new Random();
-        var probFruit = random.nextInt(0,3);
-        var probAbnormal = random.nextInt(0,5);
+        var probFruit = random.nextInt(0,4);
+        var probAbnormal = random.nextInt(0,4);
         Fruit fruit;
         if (probFruit == 0) {
             fruit = new Broccoli(probAbnormal == 0);
