@@ -11,7 +11,7 @@ public final class Apple extends Fruit {
         super();
         this.poisonous = poisonous;
         if (poisonous) {
-            this.mainColor = new Color(9, 35, 193, 174);
+            this.mainColor = new Color(110, 47, 149, 100);
         }
         else {
             this.mainColor = Color.RED;

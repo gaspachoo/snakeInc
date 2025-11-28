@@ -11,7 +11,7 @@ public final class Broccoli extends Fruit {
         super();
         this.steamed = steamed;
         if (steamed) {
-            this.mainColor = new Color(110, 47, 149, 100);
+            this.mainColor = new Color(9, 35, 193, 174);
         }
         else {
             this.mainColor = Color.GREEN;
