@@ -24,10 +24,13 @@ public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
     private int eatCount;
     @Getter
     private int bonusCount;
+    @Getter
+    private SnakeState state;
 
     public enum Direction { U, D, R, L}
 
     public Snake(FruitEatenListener listener, Grid grid) {
+        this.state = new GoodHealthState(this);
         this.body = new ArrayList<>();
         this.onFruitEatenListener = listener;
         this.grid = grid;
@@ -55,14 +58,18 @@ public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
 
     public void eat(Fruit Fruit, Cell cell) {}
 
-    private void updateBonusCount(Cell head){
+    private void updateBonusCountAndState(Cell head){
         switch (head.getFruit()){
             case Apple apple:
                 if (!apple.isPoisonous()) {
                     bonusCount += 2;
                 }
+                else {
+                    state.eatPoisonedApple();
+                }
                 break;
             case Broccoli broccoli:
+                state.eatBroccoli();
                 if (!broccoli.isSteamed()) {
                     bonusCount ++;
                 }
@@ -71,6 +78,7 @@ public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
                 break;
         }
     }
+
     public void move(Direction direction) throws OutOfPlayException, SelfCollisionException, UnderfedException {
         moveCount++;
         int x = getHead().getX();
@@ -100,12 +108,13 @@ public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
         // Eat Fruit :
         if (newHead.containsAnFruit()) {
             eatCount++;
-            updateBonusCount(newHead);
+            updateBonusCountAndState(newHead);
 
             eat(newHead.getFruit(), newHead);
             if (getSize()==0){
                 throw new UnderfedException();
             }
+            System.out.println(state);
             return;
         }
 
@@ -118,6 +127,10 @@ public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
 
 
 
+    }
+
+    public void changeState(SnakeState state){
+        this.state = state;
     }
 
 }

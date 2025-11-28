@@ -110,6 +110,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
                 }
                 break;
         }
+
+        // Apply state editMoves method
+        Snake snake = game.getSnake();
+        if (snake != null) {
+            direction = snake.getState().editMoves(direction);
+        }
     }
 
     @Override
