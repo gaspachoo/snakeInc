@@ -1,8 +1,6 @@
-package org.snakeinc.snake.model;
+package org.snakeinc.snake.model.states;
 
-import org.snakeinc.snake.exception.OutOfPlayException;
-import org.snakeinc.snake.exception.SelfCollisionException;
-import org.snakeinc.snake.exception.UnderfedException;
+import org.snakeinc.snake.model.Snake;
 
 public abstract class SnakeState {
 

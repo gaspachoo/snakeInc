@@ -1,7 +1,9 @@
-package org.snakeinc.snake.model;
+package org.snakeinc.snake.model.states;
 
-public class PermanentlyDamagedState extends SnakeState{
-    PermanentlyDamagedState(Snake snake) {
+import org.snakeinc.snake.model.Snake;
+
+public class PermanentlyDamagedState extends SnakeState {
+    public PermanentlyDamagedState(Snake snake) {
         super(snake);
     }
 

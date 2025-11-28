@@ -1,7 +1,9 @@
-package org.snakeinc.snake.model;
+package org.snakeinc.snake.model.states;
+
+import org.snakeinc.snake.model.Snake;
 
 public class PoisonedState extends SnakeState {
-    PoisonedState(Snake snake) {
+    public PoisonedState(Snake snake) {
         super(snake);
     }
 
@@ -17,6 +19,6 @@ public class PoisonedState extends SnakeState {
 
     @Override
     public void eatBroccoli() {
-        if(snake != null) {snake.changeState(new GoodHealthState(snake));};
+        if(snake != null) {snake.changeState(new GoodHealthState(snake));}
     }
 }
