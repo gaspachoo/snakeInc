@@ -55,7 +55,22 @@ public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
 
     public void eat(Fruit Fruit, Cell cell) {}
 
-
+    private void updateBonusCount(Cell head){
+        switch (head.getFruit()){
+            case Apple apple:
+                if (!apple.isPoisonous()) {
+                    bonusCount += 2;
+                }
+                break;
+            case Broccoli broccoli:
+                if (!broccoli.isSteamed()) {
+                    bonusCount ++;
+                }
+                break;
+            default :
+                break;
+        }
+    }
     public void move(Direction direction) throws OutOfPlayException, SelfCollisionException, UnderfedException {
         moveCount++;
         int x = getHead().getX();
@@ -85,23 +100,10 @@ public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
         // Eat Fruit :
         if (newHead.containsAnFruit()) {
             eatCount++;
-            switch (newHead.getFruit()){
-                case Apple apple:
-                    if (!apple.isPoisonous()) {
-                        bonusCount += 2;
-                    }
-                    break;
-                case Broccoli broccoli:
-                    if (!broccoli.isSteamed()) {
-                        bonusCount ++;
-                    }
-                    break;
-                default :
-                    break;
-                }
+            updateBonusCount(newHead);
 
-            this.eat(newHead.getFruit(), newHead);
-            if (this.getSize()==0){
+            eat(newHead.getFruit(), newHead);
+            if (getSize()==0){
                 throw new UnderfedException();
             }
             return;
