@@ -1,5 +1,6 @@
 package org.snakeinc.snake.model.spawnfruits;
 
+import lombok.ToString;
 import org.snakeinc.snake.GameParams;
 import org.snakeinc.snake.model.Cell;
 import org.snakeinc.snake.model.Grid;
@@ -7,6 +8,7 @@ import org.snakeinc.snake.model.snakes.Snake;
 
 import java.util.Random;
 
+@ToString
 public class RandomStrategy implements SpawnStrategy {
 
     @Override

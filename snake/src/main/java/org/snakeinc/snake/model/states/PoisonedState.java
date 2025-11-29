@@ -1,7 +1,9 @@
 package org.snakeinc.snake.model.states;
 
+import lombok.ToString;
 import org.snakeinc.snake.model.snakes.Snake;
 
+@ToString()
 public class PoisonedState extends SnakeState {
     public PoisonedState(Snake snake) {
         super(snake);

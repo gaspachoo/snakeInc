@@ -38,6 +38,7 @@ public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
 
     public Snake(FruitEatenListener listener, Grid grid) {
         this.state = new GoodHealthState(this);
+        System.out.println(state);
         this.body = new ArrayList<>();
         this.onFruitEatenListener = listener;
         this.grid = grid;
@@ -73,10 +74,12 @@ public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
                 }
                 else {
                     state.eatPoisonedApple();
+                    System.out.println(state);
                 }
                 break;
             case Broccoli broccoli:
                 state.eatBroccoli();
+                System.out.println(state);
                 if (!broccoli.isSteamed()) {
                     bonusCount ++;
                 }
@@ -121,7 +124,6 @@ public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
             if (getSize()==0){
                 throw new UnderfedException();
             }
-            System.out.println(state);
             return;
         }
 

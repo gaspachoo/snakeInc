@@ -2,9 +2,10 @@ package org.snakeinc.snake.model.states;
 
 import org.snakeinc.snake.model.snakes.Snake;
 
+
 public abstract class SnakeState {
 
-    Snake snake;
+    protected Snake snake;
     SnakeState(Snake snake) {
         this.snake = snake;
     }
