@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Random;
 import lombok.Data;
 import org.snakeinc.snake.GameParams;
+import org.snakeinc.snake.model.fruits.Fruit;
+import org.snakeinc.snake.model.fruits.FruitFactory;
 
 @Data
 public class Basket {

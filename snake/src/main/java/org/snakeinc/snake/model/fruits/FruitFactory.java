@@ -1,4 +1,6 @@
-package org.snakeinc.snake.model;
+package org.snakeinc.snake.model.fruits;
+
+import org.snakeinc.snake.model.Cell;
 
 import java.util.Random;
 
