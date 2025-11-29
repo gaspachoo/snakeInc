@@ -1,6 +1,9 @@
 package org.snakeinc.snake.model.snakes;
 
 import org.snakeinc.snake.model.*;
+import org.snakeinc.snake.model.fruits.Apple;
+import org.snakeinc.snake.model.fruits.Broccoli;
+import org.snakeinc.snake.model.fruits.Fruit;
 
 import java.awt.Color;
 
@@ -13,12 +16,12 @@ public final class BoaConstrictor extends Snake {
 
     public void eat(Fruit Fruit, Cell cell) {
         switch (cell.getFruit()) {
-            case Apple _ :
+            case Apple apple :
                 body.getLast().removeSnake();
                 body.removeLast();
                 onFruitEatenListener.onFruitEaten(Fruit, cell);
                 break;
-            case Broccoli _ :
+            case Broccoli broccoli :
                 onFruitEatenListener.onFruitEaten(Fruit, cell);
                 break;
         }

@@ -1,6 +1,9 @@
 package org.snakeinc.snake.model.snakes;
 
 import org.snakeinc.snake.model.*;
+import org.snakeinc.snake.model.fruits.Apple;
+import org.snakeinc.snake.model.fruits.Broccoli;
+import org.snakeinc.snake.model.fruits.Fruit;
 
 import java.awt.Color;
 
@@ -14,12 +17,12 @@ public final class Anaconda extends Snake {
 
     public void eat(Fruit Fruit, Cell cell) {
         switch (cell.getFruit()){
-            case Apple _ :
+            case Apple apple :
                 body.addFirst(cell);
                 cell.addSnake(this);
                 onFruitEatenListener.onFruitEaten(Fruit,cell);
                 break;
-            case Broccoli _ :
+            case Broccoli broccoli :
                 for (int j=0; j<2; j++){
                 body.getLast().removeSnake();
                 body.removeLast();
