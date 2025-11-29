@@ -20,7 +20,7 @@ public class Cell {
     Snake snake;
     Fruit Fruit;
 
-    protected Cell(int x, int y) {
+    public Cell(int x, int y) {
         setX(x);
         setY(y);
     }

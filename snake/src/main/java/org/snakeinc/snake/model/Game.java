@@ -8,6 +8,7 @@ import org.snakeinc.snake.model.snakes.Anaconda;
 import org.snakeinc.snake.model.snakes.BoaConstrictor;
 import org.snakeinc.snake.model.snakes.Python;
 import org.snakeinc.snake.model.snakes.Snake;
+import org.snakeinc.snake.model.spawnfruits.Basket;
 
 import java.util.Random;
 
