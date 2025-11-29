@@ -38,10 +38,6 @@ public class Basket {
         Fruits.remove(Fruit);
     }
 
-    public boolean isEmpty() {
-        return Fruits.isEmpty();
-    }
-
     private void refill(int nFruits) {
         for (int i = 0; i < nFruits; i++) {
             addFruit(null);
