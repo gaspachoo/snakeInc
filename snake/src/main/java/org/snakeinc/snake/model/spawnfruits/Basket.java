@@ -5,7 +5,6 @@ import java.util.List;
 import lombok.Data;
 import org.snakeinc.snake.model.Cell;
 import org.snakeinc.snake.model.Grid;
-import org.snakeinc.snake.model.spawnfruits.SpawnStrategy;
 import org.snakeinc.snake.model.fruits.Fruit;
 import org.snakeinc.snake.model.fruits.FruitFactory;
 
