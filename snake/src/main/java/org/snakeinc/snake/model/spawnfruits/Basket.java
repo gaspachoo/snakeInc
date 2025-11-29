@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.Setter;
 import org.snakeinc.snake.model.Cell;
 import org.snakeinc.snake.model.Grid;
+import org.snakeinc.snake.model.fruits.Apple;
+import org.snakeinc.snake.model.fruits.Broccoli;
 import org.snakeinc.snake.model.fruits.Fruit;
 import org.snakeinc.snake.model.fruits.FruitFactory;
 import org.snakeinc.snake.model.snakes.Snake;
@@ -49,6 +51,17 @@ public class Basket {
         if (missingFruit > 0) {
             refill(missingFruit);
         }
+    }
+
+    public void addSpecificFruit(Cell cell, boolean isApple, boolean isAbnormal) {
+        Fruit fruit;
+        if (isApple) {
+            fruit = new Apple(isAbnormal);
+        } else {
+            fruit = new Broccoli(isAbnormal);
+        }
+        cell.addFruit(fruit);
+        Fruits.add(fruit);
     }
 
 }
