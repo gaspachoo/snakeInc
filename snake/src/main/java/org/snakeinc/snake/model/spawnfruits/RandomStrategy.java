@@ -11,10 +11,9 @@ public class RandomStrategy implements SpawnStrategy {
     @Override
     public Cell spawnFruit(Cell cell, Grid grid) {
         var random = new Random();
-        cell = grid.getTile(random.nextInt(0, GameParams.TILES_X), random.nextInt(0, GameParams.TILES_Y));
-        while (cell.containsASnake() | cell.containsAnFruit()){
+        do {
             cell = grid.getTile(random.nextInt(0, GameParams.TILES_X), random.nextInt(0, GameParams.TILES_Y));
-        }
+        } while (cell.containsASnake() | cell.containsAnFruit());
         return cell;
     }
 }
