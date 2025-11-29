@@ -25,11 +25,11 @@ public class Game {
         var random = new Random();
         int type = random.nextInt(0,10);
         if (type == 0) {
-            snake = new BoaConstrictor((Fruit, cell) -> basket.removeFruitInCell(Fruit, cell), grid);
+            snake = new BoaConstrictor(basket::removeFruitInCell, grid);
         } else if (type == 1) {
-            snake = new Python((Fruit, cell) -> basket.removeFruitInCell(Fruit,cell), grid);
+            snake = new Python(basket::removeFruitInCell, grid);
         }
-        else {snake = new Anaconda((Fruit, cell) -> basket.removeFruitInCell(Fruit,cell), grid);
+        else {snake = new Anaconda(basket::removeFruitInCell, grid);
         }
     }
 

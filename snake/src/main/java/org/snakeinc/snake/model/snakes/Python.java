@@ -13,10 +13,10 @@ public final class Python extends Snake {
 
     public void eat(Fruit Fruit, Cell cell) {
         switch (cell.getFruit()) {
-            case Apple apple:
+            case Apple _ :
                 onFruitEatenListener.onFruitEaten(Fruit, cell);
                 break;
-            case Broccoli broccoli:
+            case Broccoli _ :
                 for (int i=0; i<3; i++){
                     body.getLast().removeSnake();
                     body.removeLast();

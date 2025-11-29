@@ -14,12 +14,12 @@ public final class Anaconda extends Snake {
 
     public void eat(Fruit Fruit, Cell cell) {
         switch (cell.getFruit()){
-            case Apple apple:
+            case Apple _ :
                 body.addFirst(cell);
                 cell.addSnake(this);
                 onFruitEatenListener.onFruitEaten(Fruit,cell);
                 break;
-            case Broccoli broccoli:
+            case Broccoli _ :
                 for (int j=0; j<2; j++){
                 body.getLast().removeSnake();
                 body.removeLast();

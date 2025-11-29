@@ -13,12 +13,12 @@ public final class BoaConstrictor extends Snake {
 
     public void eat(Fruit Fruit, Cell cell) {
         switch (cell.getFruit()) {
-            case Apple apple:
+            case Apple _ :
                 body.getLast().removeSnake();
                 body.removeLast();
                 onFruitEatenListener.onFruitEaten(Fruit, cell);
                 break;
-            case Broccoli broccoli:
+            case Broccoli _ :
                 onFruitEatenListener.onFruitEaten(Fruit, cell);
                 break;
         }
