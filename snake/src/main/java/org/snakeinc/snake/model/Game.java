@@ -9,6 +9,8 @@ import org.snakeinc.snake.model.snakes.BoaConstrictor;
 import org.snakeinc.snake.model.snakes.Python;
 import org.snakeinc.snake.model.snakes.Snake;
 import org.snakeinc.snake.model.spawnfruits.Basket;
+import org.snakeinc.snake.model.spawnfruits.RandomStrategy;
+import org.snakeinc.snake.model.spawnfruits.SpawnStrategy;
 
 import java.util.Random;
 
@@ -18,16 +20,27 @@ public class Game {
     private final Grid grid;
     private final Basket basket;
     private final Snake snake;
+    private final SpawnStrategy strategy;
 
     public Game() {
         grid = new Grid();
-        basket = new Basket(grid);
-        basket.refillIfNeeded(3);
         var random = new Random();
-        int type = random.nextInt(0,10);
-        if (type == 0) {
+        int strategy_rand = random.nextInt(0,3);
+        if  (strategy_rand == 0) {
+            strategy = new RandomStrategy();
+        } else if (strategy_rand == 1) {
+            strategy = new RandomStrategy();
+        } else {
+            strategy = new RandomStrategy();
+        }
+
+        basket = new Basket(grid, strategy);
+        basket.refillIfNeeded(3);
+
+        int snake_rand = random.nextInt(0,10);
+        if (snake_rand == 0) {
             snake = new BoaConstrictor(basket::removeFruitInCell, grid);
-        } else if (type == 1) {
+        } else if (snake_rand == 1) {
             snake = new Python(basket::removeFruitInCell, grid);
         }
         else {snake = new Anaconda(basket::removeFruitInCell, grid);

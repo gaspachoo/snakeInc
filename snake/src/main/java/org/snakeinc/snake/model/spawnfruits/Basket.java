@@ -2,11 +2,10 @@ package org.snakeinc.snake.model.spawnfruits;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import lombok.Data;
-import org.snakeinc.snake.GameParams;
 import org.snakeinc.snake.model.Cell;
 import org.snakeinc.snake.model.Grid;
+import org.snakeinc.snake.model.spawnfruits.SpawnStrategy;
 import org.snakeinc.snake.model.fruits.Fruit;
 import org.snakeinc.snake.model.fruits.FruitFactory;
 
@@ -15,16 +14,18 @@ public class Basket {
 
     private Grid grid;
     private List<Fruit> Fruits;
+    private SpawnStrategy strategy;
 
-    public Basket(Grid grid) {
+    public Basket(Grid grid, SpawnStrategy strategy) {
         Fruits = new ArrayList<>();
         this.grid = grid;
+        this.strategy = strategy;
     }
 
     public void addFruit(Cell cell) {
         SpawnStrategy strategy = new RandomStrategy();
         if (cell == null) {
-            cell = strategy.spawnFruit(cell, grid);
+            cell = strategy.spawnFruit(null, grid);
         }
         Fruit Fruit = FruitFactory.createFruitInCell(cell);
         Fruits.add(Fruit);
