@@ -17,9 +17,10 @@ import org.snakeinc.snake.model.states.SnakeState;
 
 public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
 
-    protected final ArrayList<Cell> body;
     protected final FruitEatenListener onFruitEatenListener;
     private final Grid grid;
+    @Getter
+    protected final ArrayList<Cell> body;
     @Getter
     protected Color mainColor;
     @Getter

@@ -3,10 +3,12 @@ package org.snakeinc.snake.model.spawnfruits;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
+import lombok.Setter;
 import org.snakeinc.snake.model.Cell;
 import org.snakeinc.snake.model.Grid;
 import org.snakeinc.snake.model.fruits.Fruit;
 import org.snakeinc.snake.model.fruits.FruitFactory;
+import org.snakeinc.snake.model.snakes.Snake;
 
 @Data
 public class Basket {
@@ -14,6 +16,8 @@ public class Basket {
     private Grid grid;
     private List<Fruit> Fruits;
     private SpawnStrategy strategy;
+    @Setter
+    private Snake snake;
 
     public Basket(Grid grid, SpawnStrategy strategy) {
         Fruits = new ArrayList<>();
@@ -22,9 +26,8 @@ public class Basket {
     }
 
     public void addFruit(Cell cell) {
-        SpawnStrategy strategy = new RandomStrategy();
         if (cell == null) {
-            cell = strategy.spawnFruit(null, grid);
+            cell = strategy.spawnFruit(grid, snake);
         }
         Fruit Fruit = FruitFactory.createFruitInCell(cell);
         Fruits.add(Fruit);
