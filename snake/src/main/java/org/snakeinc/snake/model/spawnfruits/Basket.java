@@ -38,6 +38,18 @@ public class Basket {
         }
     }
 
+    public void addFruit(Cell cell, boolean isApple, boolean isAbnormal) {
+        if (cell == null) {
+            cell = strategy.spawnFruit(grid, snake);
+        }
+        Fruit fruit = FruitFactory.createFruitInCell(cell, grid, isApple, isAbnormal);
+        Fruits.add(fruit);
+
+        if (snake != null) {
+            snake.attachObserver(fruit);
+        }
+    }
+
     public void removeFruitInCell(Fruit fruit, Cell cell) {
         cell.removeFruit();
         Fruits.remove(fruit);
@@ -64,16 +76,5 @@ public class Basket {
         }
     }
 
-    public void addFruit(Cell cell, boolean isApple, boolean isAbnormal) {
-        if (cell == null) {
-            cell = strategy.spawnFruit(grid, snake);
-        }
-        Fruit fruit = FruitFactory.createFruitInCell(cell, grid, isApple, isAbnormal);
-        Fruits.add(fruit);
-
-        if (snake != null) {
-            snake.attachObserver(fruit);
-        }
-    }
 
 }
