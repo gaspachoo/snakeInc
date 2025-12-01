@@ -31,13 +31,23 @@ public class Basket {
         if (cell == null) {
             cell = strategy.spawnFruit(grid, snake);
         }
-        Fruit Fruit = FruitFactory.createFruitInCell(cell);
-        Fruits.add(Fruit);
+        Fruit fruit = FruitFactory.createFruitInCell(cell, grid);
+        Fruits.add(fruit);
+
+        // Register fruit as observer of snake movements
+        if (snake != null) {
+            snake.attachObserver(fruit);
+        }
     }
 
-    public void removeFruitInCell(Fruit Fruit, Cell cell) {
+    public void removeFruitInCell(Fruit fruit, Cell cell) {
         cell.removeFruit();
-        Fruits.remove(Fruit);
+        Fruits.remove(fruit);
+
+        // Unregister fruit from snake observers
+        if (snake != null) {
+            snake.detachObserver(fruit);
+        }
     }
 
     private void refill(int nFruits) {

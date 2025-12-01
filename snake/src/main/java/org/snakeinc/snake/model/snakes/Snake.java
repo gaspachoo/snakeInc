@@ -33,21 +33,25 @@ public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
     private int bonusCount;
     @Getter
     private SnakeState state;
+    private final ArrayList<SnakeObserver> observers;
 
-    public enum Direction { U, D, R, L}
+    public enum Direction {
+        U, D, R, L
+    }
 
     public Snake(FruitEatenListener listener, Grid grid) {
         this.state = new GoodHealthState(this);
         System.out.println(state);
         this.body = new ArrayList<>();
         this.onFruitEatenListener = listener;
+        this.observers = new ArrayList<>();
         this.grid = grid;
         this.eatCount = 0;
         this.bonusCount = 0;
         this.moveCount = 0;
         Cell head = grid.getTile(GameParams.SNAKE_DEFAULT_X, GameParams.SNAKE_DEFAULT_Y);
-        Cell mid = grid.getTile(GameParams.SNAKE_DEFAULT_X-1, GameParams.SNAKE_DEFAULT_Y);
-        Cell tail = grid.getTile(GameParams.SNAKE_DEFAULT_X-2, GameParams.SNAKE_DEFAULT_Y);
+        Cell mid = grid.getTile(GameParams.SNAKE_DEFAULT_X - 1, GameParams.SNAKE_DEFAULT_Y);
+        Cell tail = grid.getTile(GameParams.SNAKE_DEFAULT_X - 2, GameParams.SNAKE_DEFAULT_Y);
         head.addSnake(this);
         mid.addSnake(this);
         tail.addSnake(this);
@@ -64,15 +68,15 @@ public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
         return body.getFirst();
     }
 
-    public void eat(Fruit Fruit, Cell cell) {}
+    public void eat(Fruit Fruit, Cell cell) {
+    }
 
-    private void updateBonusCountAndState(Cell head){
-        switch (head.getFruit()){
+    private void updateBonusCountAndState(Cell head) {
+        switch (head.getFruit()) {
             case Apple apple:
                 if (!apple.isPoisonous()) {
                     bonusCount += 2;
-                }
-                else {
+                } else {
                     state.eatPoisonedApple();
                     System.out.println(state);
                 }
@@ -81,15 +85,16 @@ public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
                 state.eatBroccoli();
                 System.out.println(state);
                 if (!broccoli.isSteamed()) {
-                    bonusCount ++;
+                    bonusCount++;
                 }
                 break;
-            default :
+            default:
                 break;
         }
     }
 
     public void move(Direction direction) throws OutOfPlayException, SelfCollisionException, UnderfedException {
+        notifyObservers();
         moveCount++;
         int x = getHead().getX();
         int y = getHead().getY();
@@ -121,7 +126,7 @@ public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
             updateBonusCountAndState(newHead);
 
             eat(newHead.getFruit(), newHead);
-            if (getSize()==0){
+            if (getSize() == 0) {
                 throw new UnderfedException();
             }
             return;
@@ -134,12 +139,24 @@ public abstract sealed class Snake permits Anaconda, Python, BoaConstrictor {
         body.getLast().removeSnake();
         body.removeLast();
 
-
-
     }
 
-    public void changeState(SnakeState state){
+    public void changeState(SnakeState state) {
         this.state = state;
+    }
+
+    public void attachObserver(SnakeObserver observer) {
+        this.observers.add(observer);
+    }
+
+    public void detachObserver(SnakeObserver observer) {
+        this.observers.remove(observer);
+    }
+
+    public void notifyObservers() {
+        for (SnakeObserver observer : observers) {
+            observer.onSnakeMove(this.body.getFirst());
+        }
     }
 
 }
