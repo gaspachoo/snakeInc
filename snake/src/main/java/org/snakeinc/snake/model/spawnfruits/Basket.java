@@ -2,6 +2,8 @@ package org.snakeinc.snake.model.spawnfruits;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 import lombok.Data;
 import lombok.Setter;
 import org.snakeinc.snake.model.Cell;
@@ -30,7 +32,11 @@ public class Basket {
         if (cell == null) {
             cell = strategy.spawnFruit(grid, snake);
         }
-        Fruit fruit = FruitFactory.createFruitInCell(cell, grid);
+        var random = new Random();
+        boolean isApple = (random.nextInt(0, 4) != 0);
+        boolean isAbnormal = (random.nextInt(0, 4) == 0);
+
+        Fruit fruit = FruitFactory.createFruitInCell(cell, grid,  isApple, isAbnormal);
         Fruits.add(fruit);
 
         if (snake != null) {
