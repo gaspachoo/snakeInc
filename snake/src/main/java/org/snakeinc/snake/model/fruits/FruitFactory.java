@@ -23,4 +23,18 @@ public class FruitFactory {
         cell.addFruit(fruit);
         return fruit;
     }
+
+    public static Fruit createFruitInCell(Cell cell, Grid grid, boolean isApple, boolean isAbnormal) {
+        Fruit fruit;
+        if (!isApple) {
+            fruit = new Broccoli(isAbnormal);
+        } else {
+            fruit = new Apple(isAbnormal);
+        }
+
+        fruit.setCurrentCell(cell);
+        fruit.setGrid(grid);
+        cell.addFruit(fruit);
+        return fruit;
+    }
 }

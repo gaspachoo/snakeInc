@@ -27,7 +27,7 @@ public class SnakeTest {
         
         int initialSize = anaconda.getSize();
         Cell target = grid.getTile(5, 4);
-        basket.addSpecificFruit(target, true, false); // Normal apple
+        basket.addFruit(target, true, false); // Normal apple
         
         anaconda.move(Snake.Direction.U);
         

@@ -7,7 +7,6 @@ import lombok.Setter;
 import org.snakeinc.snake.model.Cell;
 import org.snakeinc.snake.model.Grid;
 import org.snakeinc.snake.model.fruits.Apple;
-import org.snakeinc.snake.model.fruits.Broccoli;
 import org.snakeinc.snake.model.fruits.Fruit;
 import org.snakeinc.snake.model.fruits.FruitFactory;
 import org.snakeinc.snake.model.snakes.Snake;
@@ -55,21 +54,26 @@ public class Basket {
     }
 
     public void refillIfNeeded(int nFruits) {
+        boolean hasApple = Fruits.stream().anyMatch(fruit -> fruit instanceof Apple);
+        if (!hasApple){
+            addFruit(null, true, false);
+        }
         int missingFruit = nFruits - Fruits.size();
-        if (missingFruit > 0) {
+        if (missingFruit > 1) {
             refill(missingFruit);
         }
     }
 
-    public void addSpecificFruit(Cell cell, boolean isApple, boolean isAbnormal) {
-        Fruit fruit;
-        if (isApple) {
-            fruit = new Apple(isAbnormal);
-        } else {
-            fruit = new Broccoli(isAbnormal);
+    public void addFruit(Cell cell, boolean isApple, boolean isAbnormal) {
+        if (cell == null) {
+            cell = strategy.spawnFruit(grid, snake);
         }
-        cell.addFruit(fruit);
+        Fruit fruit = FruitFactory.createFruitInCell(cell, grid, isApple, isAbnormal);
         Fruits.add(fruit);
+
+        if (snake != null) {
+            snake.attachObserver(fruit);
+        }
     }
 
 }
