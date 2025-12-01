@@ -34,7 +34,6 @@ public class Basket {
         Fruit fruit = FruitFactory.createFruitInCell(cell, grid);
         Fruits.add(fruit);
 
-        // Register fruit as observer of snake movements
         if (snake != null) {
             snake.attachObserver(fruit);
         }
@@ -44,7 +43,6 @@ public class Basket {
         cell.removeFruit();
         Fruits.remove(fruit);
 
-        // Unregister fruit from snake observers
         if (snake != null) {
             snake.detachObserver(fruit);
         }
