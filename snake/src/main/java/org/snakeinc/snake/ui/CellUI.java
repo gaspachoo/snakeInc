@@ -4,7 +4,7 @@ import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import lombok.AllArgsConstructor;
-import org.snakeinc.snake.model.*;
+import org.snakeinc.snake.model.Cell;
 
 @AllArgsConstructor
 public class CellUI {
