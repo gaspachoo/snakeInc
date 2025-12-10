@@ -1,4 +1,4 @@
-package org.snakeinc.api.entities;
+package org.snakeinc.api.entity;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

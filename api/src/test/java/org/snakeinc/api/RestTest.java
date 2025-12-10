@@ -1,8 +1,8 @@
 package org.snakeinc.api;
 
 import org.junit.jupiter.api.Test;
-import org.snakeinc.api.entities.Player;
-import org.snakeinc.api.entities.PlayerParams;
+import org.snakeinc.api.entity.Player;
+import org.snakeinc.api.entity.PlayerParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;

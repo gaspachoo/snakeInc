@@ -1,4 +1,4 @@
-package org.snakeinc.api.entities;
+package org.snakeinc.api.entity;
 
 import lombok.Getter;
 

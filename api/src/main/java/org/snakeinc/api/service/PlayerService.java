@@ -1,7 +1,7 @@
 package org.snakeinc.api.service;
 
 import lombok.Data;
-import org.snakeinc.api.entities.Player;
+import org.snakeinc.api.entity.Player;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;

@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
-import org.snakeinc.api.entities.Player;
+import org.snakeinc.api.entity.Player;
 import org.snakeinc.api.service.PlayerService;
 
 public class ServiceTest {

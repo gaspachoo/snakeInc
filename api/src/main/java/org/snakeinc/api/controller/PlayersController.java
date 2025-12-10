@@ -2,8 +2,8 @@ package org.snakeinc.api.controller;
 
 
 import jakarta.validation.Valid;
-import org.snakeinc.api.entities.Player;
-import org.snakeinc.api.entities.PlayerParams;
+import org.snakeinc.api.entity.Player;
+import org.snakeinc.api.entity.PlayerParams;
 import org.snakeinc.api.service.PlayerService;
 import org.springframework.web.bind.annotation.*;
 
