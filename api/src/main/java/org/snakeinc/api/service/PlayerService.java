@@ -1,13 +1,14 @@
 package org.snakeinc.api.service;
 
+import lombok.Data;
 import org.snakeinc.api.entities.Player;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Service
-public class PlayersService {
+@Service @Data
+public class PlayerService {
     private final Map<Integer, Player> players = new HashMap<>();
 
     public Player getPlayer(int id) {
