@@ -1,17 +1,22 @@
 package org.snakeinc.api.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+
+@Entity @NoArgsConstructor(force = true)
 public class Player {
-    @Getter
+    @Getter @Id
     private final int id;
     @Getter
-    private String name;
+    private final String name;
     @Getter
-    private int age;
+    private final int age;
     @Getter
-    private String category;
+    private final String category;
     @Getter
     private final LocalDateTime created_at;
     private static int id_count = 1;
