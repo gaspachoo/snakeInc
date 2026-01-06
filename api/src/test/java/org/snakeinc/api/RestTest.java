@@ -1,34 +1,70 @@
 package org.snakeinc.api;
 
+import io.restassured.RestAssured;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.snakeinc.api.entity.Player;
 import org.snakeinc.api.entity.PlayerParams;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
+
+
+import static io.restassured.RestAssured.given;
+import static io.restassured.http.ContentType.JSON;
+import static org.hamcrest.Matchers.equalTo;
 
 @ActiveProfiles("test")
 @SpringBootTest(classes = ApiApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class RestTest {
 
-    @Autowired
-    private TestRestTemplate restTemplate;
-    @Test
-    public void testPost(){
-        PlayerParams params = new PlayerParams("nom", 21);
-        Player player = restTemplate.postForEntity("/api/v1/players", params, Player.class).getBody();
-        assert(player.getName().equals("nom"));
-        assert(player.getAge() == 21);
+
+    @LocalServerPort
+    private Integer port;
+
+    @BeforeEach
+    void setup() {
+        RestAssured.baseURI = "http://localhost";
+        io.restassured.RestAssured.port = port;
+        RestAssured.basePath = "/api/v1";
     }
 
     @Test
-    public void testGet(){
+    public void testPost() {
         PlayerParams params = new PlayerParams("nom", 21);
-        Player playerPost = restTemplate.postForEntity("/api/v1/players", params, Player.class).getBody();
-        Player playerGet = restTemplate.getForEntity("/api/v1/players/" + playerPost.getId(), Player.class).getBody();
-        assert(playerPost.getName().equals(playerGet.getName()));
-        assert(playerPost.getAge() == playerGet.getAge());
+
+        given()
+            .contentType(JSON)
+            .body(params)
+            .when()
+                .post("/players")
+            .then()
+                .statusCode(200)
+                .body("name", equalTo("nom"))
+                .body("age", equalTo(21));
     }
 
+    @Test
+    public void testGet() {
+        PlayerParams params = new PlayerParams("nom", 21);
+
+        Player created =
+            given()
+                .contentType(JSON)
+                .body(params)
+            .when()
+                .post("/players")
+            .then()
+                .statusCode(200)
+                .extract()
+                .as(Player.class);
+
+        given()
+        .when()
+            .get("/players/{id}", created.getId())
+        .then()
+            .statusCode(200)
+            .body("name", equalTo(created.getName()))
+            .body("age", equalTo(created.getAge()));
+    }
 }
