@@ -1,0 +1,22 @@
+meta {
+  name: {{base_url}}/api/v1/players
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/api/v1/players
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "name" : "Patrick",
+      "age" : 59
+  }
+}
+
+settings {
+  encodeUrl: true
+}

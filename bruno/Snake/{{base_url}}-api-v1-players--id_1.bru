@@ -1,0 +1,25 @@
+meta {
+  name: {{base_url}}/api/v1/players/:id_1
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{base_url}}/api/v1/players/:id
+  body: json
+  auth: inherit
+}
+
+params:path {
+  id: 1
+}
+
+body:json {
+  {
+      "name" : "Jean Louis"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

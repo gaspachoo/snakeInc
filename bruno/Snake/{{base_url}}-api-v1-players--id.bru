@@ -1,0 +1,25 @@
+meta {
+  name: {{base_url}}/api/v1/players/:id
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{base_url}}/api/v1/players/:id
+  body: json
+  auth: inherit
+}
+
+params:path {
+  id: 1
+}
+
+body:json {
+  {
+      "name" : "Jean Louis"
+  }
+}
+
+settings {
+  encodeUrl: true
+}
