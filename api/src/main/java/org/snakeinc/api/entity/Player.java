@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Entity @NoArgsConstructor(force = true)
 public class Player {
     @Getter @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    private final int id = 1;
+    private int id = 1;
     @Getter
     private final String name;
     @Getter

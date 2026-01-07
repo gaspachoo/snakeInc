@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(force = true)
 public class Score {
     @Getter @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    private final int id = 1;
+    private int id = 1;
 
     @Getter
     private final int score;
