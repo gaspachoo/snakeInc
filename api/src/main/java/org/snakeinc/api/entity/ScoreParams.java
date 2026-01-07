@@ -21,4 +21,8 @@ public class ScoreParams {
             message = "snake must be boaConstrictor, anaconda, or python")
     private String snake;
 
+    public ScoreParams(int playerId, String snake) {
+        this.playerId = playerId;
+        this.snake = snake;
+    }
 }

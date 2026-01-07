@@ -1,14 +1,12 @@
 package org.snakeinc.api.controller;
 
-
 import jakarta.validation.Valid;
 import org.snakeinc.api.entity.Score;
 import org.snakeinc.api.entity.ScoreParams;
 import org.snakeinc.api.service.ScoreService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/scores")
@@ -22,5 +20,14 @@ public class ScoresController {
     @PostMapping
     public Score addScore(@RequestBody @Valid ScoreParams scoreParams) {
         return scoreService.addScore(scoreParams);
+    }
+
+    @GetMapping
+    public List<Score> getScores(
+            @RequestParam(name = "snake") String snake,
+            @RequestParam(name = "player") int playerId
+    ) {
+        ScoreParams params = new ScoreParams(playerId, snake);
+        return scoreService.getScores(params);
     }
 }

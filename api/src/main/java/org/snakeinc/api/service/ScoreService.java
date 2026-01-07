@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service @Data
 public class ScoreService {
     private final ScoreRepo scoreRepo;
@@ -21,6 +23,13 @@ public class ScoreService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This player was not found"));
         Score score = new Score(scoreParams.getScore(), player, scoreParams.getSnake());
         return scoreRepo.save(score);
+    }
+
+    public List<Score> getScores(ScoreParams scoreParams) {
+        return scoreRepo.findBySnakeAndPlayer_Id(
+                scoreParams.getSnake(),
+                scoreParams.getPlayerId()
+        );
     }
 
 
