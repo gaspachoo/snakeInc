@@ -2,9 +2,11 @@ package org.snakeinc.api.service;
 
 import lombok.Data;
 import org.snakeinc.api.entity.Player;
+import org.snakeinc.api.entity.PlayerParams;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.snakeinc.api.repository.PlayerRepo;
-import java.util.Optional;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service @Data
 public class PlayerService {
@@ -15,12 +17,14 @@ public class PlayerService {
     }
 
 
-    public Optional<Player> getPlayer(int id) {
-        return repo.findById(id);
+    public Player getPlayer(int id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This player was not found"));
     }
 
-    public void addPlayer(Player player) {
-        repo.save(player);
+    public Player addPlayer(PlayerParams playerParams) {
+        Player player = new Player(playerParams.getName(), playerParams.getAge());
+        return repo.save(player);
     }
 
     public void deletePlayer(int id) {
