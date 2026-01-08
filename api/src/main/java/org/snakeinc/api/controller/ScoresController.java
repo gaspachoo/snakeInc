@@ -30,4 +30,12 @@ public class ScoresController {
         ScoreParams params = new ScoreParams(playerId, snake);
         return scoreService.getScores(params);
     }
+
+    @GetMapping("stats/{id}")
+    public StatsResponse getStats(@PathVariable int id) {
+        return new StatsResponse(id, scoreService.getStats(id));
+    }
+    public record StatsResponse(int playerId, List<ScoreService.StatsItem> stats) {
+    }
+
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service @Data
 public class ScoreService {
@@ -32,5 +33,13 @@ public class ScoreService {
         );
     }
 
-
+    public List<StatsItem> getStats(int playerId) {
+        return scoreRepo.findByPlayer_Id(playerId).stream()
+                .collect(Collectors.groupingBy(
+                        Score::getSnake, Collectors.summarizingDouble(Score::getScore))).
+                entrySet().stream()
+                .map(e -> new StatsItem(e.getKey(), (int) e.getValue().getMin(), (int) e.getValue().getMax(), e.getValue().getAverage()))
+                .toList();
+    }
+    public record StatsItem(String snake, int min, int max, double average) {}
 }
