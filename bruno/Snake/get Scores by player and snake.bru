@@ -5,15 +5,14 @@ meta {
 }
 
 get {
-  url: {{base_url}}/api/v1/scores
+  url: {{base_url}}/api/v1/scores?snake=python&player=1
   body: json
   auth: inherit
 }
 
-body:json {
-  {
-      "name" : "Jean Louis"
-  }
+params:query {
+  snake: python
+  player: 1
 }
 
 settings {
