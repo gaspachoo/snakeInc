@@ -12,9 +12,11 @@ public class SnakeApp {
 
         final PlayerSelectionPanel[] selectionPanelHolder = new PlayerSelectionPanel[1];
         PlayerSelectionPanel selectionPanel = new PlayerSelectionPanel(e -> {
-            String playerName = selectionPanelHolder[0].getSelectedPlayer().getName();
+            var selectedPlayer = selectionPanelHolder[0].getSelectedPlayer();
+            String playerName = selectedPlayer.getName();
+            int playerId = selectedPlayer.getId();
             frame.getContentPane().removeAll();
-            GamePanel gamePanel = new GamePanel(playerName);
+            GamePanel gamePanel = new GamePanel(playerName, playerId);
             frame.add(gamePanel);
             frame.revalidate();
             frame.repaint();

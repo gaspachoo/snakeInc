@@ -17,6 +17,7 @@ import org.snakeinc.snake.exception.SelfCollisionException;
 import org.snakeinc.snake.exception.UnderfedException;
 import org.snakeinc.snake.model.Game;
 import org.snakeinc.snake.model.snakes.Snake;
+import org.snakeinc.snake.service.ApiService;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
@@ -29,9 +30,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     private boolean running = false;
     private Snake.Direction direction = Snake.Direction.R;
     private final String playerName;
+    private final int playerId;
+    private final ApiService apiService;
+    private boolean scoresSent = false;
 
-    public GamePanel(String playerName) {
+    public GamePanel(String playerName, int playerId) {
         this.playerName = playerName;
+        this.playerId = playerId;
+        this.apiService = new ApiService();
         this.setPreferredSize(new Dimension(GAME_PIXEL_WIDTH, GAME_PIXEL_HEIGHT));
         this.setBackground(Color.BLACK);
         this.setFocusable(true);
@@ -44,6 +50,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         timer = new Timer(100, this);
         timer.start();
         running = true;
+        scoresSent = false;
     }
 
     @Override
@@ -68,6 +75,20 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         drawCentered(g, "With " + game.getSnake().getMoveCount() + " moves", y+dy);
         drawCentered(g, "and " + game.getSnake().getEatCount() + " fruits eaten.", y+2*dy);
 
+        if (!scoresSent) {
+            sendScore(score);
+            scoresSent = true;
+        }
+    }
+
+    private void sendScore(int score) {
+        String snakeName = getSnakeName();
+        apiService.sendScore(score, playerId, snakeName);
+    }
+
+    private String getSnakeName() {
+        String snakeClassName = game.getSnake().getClass().getSimpleName();
+        return snakeClassName.substring(0, 1).toLowerCase() + snakeClassName.substring(1);
     }
 
     private void drawCentered(Graphics g, String str, int y){
