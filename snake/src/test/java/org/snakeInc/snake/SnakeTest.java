@@ -1,6 +1,7 @@
 package org.snakeInc.snake;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.snakeinc.snake.GameParams;
 import org.snakeinc.snake.exception.OutOfPlayException;
@@ -16,11 +17,17 @@ import org.snakeinc.snake.model.spawnfruits.RandomStrategy;
 
 public class SnakeTest {
 
-    Game game = new Game();
+    private Game game;
+    private Grid grid;
+
+    @BeforeEach
+    public void setUp(){
+        game = new Game();
+        grid = new Grid();
+    }
 
     @Test
     public void anacondaEatsApple_GrowsBodySize() throws OutOfPlayException, SelfCollisionException, UnderfedException {
-        Grid grid = new Grid();
         Basket basket = new Basket(grid, new RandomStrategy());
         Anaconda anaconda = new Anaconda(basket::removeFruitInCell, grid);
         basket.setSnake(anaconda);
