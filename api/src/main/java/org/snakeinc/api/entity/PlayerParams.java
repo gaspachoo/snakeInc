@@ -9,6 +9,6 @@ import lombok.Data;
 public class PlayerParams {
     @NotBlank(message = "Il faut saisir un nom !")
     private String name;
-    @Min(value = 13, message= "Va jouer aux Playmobil fumier ")
+    @Min(value = 13, message= "Va jouer aux Playmobil")
     private int age;
 }
