@@ -7,6 +7,8 @@ import org.snakeinc.api.entity.PlayerParams;
 import org.snakeinc.api.service.PlayerService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/v1/players")
 public class PlayersController {
@@ -17,6 +19,10 @@ public class PlayersController {
         this.service = service;
     }
 
+    @GetMapping
+    public List<Player> getAllPlayers() {
+        return service.getAllPlayers();
+    }
 
     @GetMapping("{id}")
     public Player getAPlayer(@PathVariable int id) {

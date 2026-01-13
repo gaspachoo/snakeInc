@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import org.snakeinc.api.repository.PlayerRepo;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 @Service @Data
 public class PlayerService {
     private final PlayerRepo repo;
@@ -20,6 +24,11 @@ public class PlayerService {
     public Player getPlayer(int id) {
         return repo.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This player was not found"));
+    }
+
+    public List<Player> getAllPlayers() {
+        return StreamSupport.stream(repo.findAll().spliterator(), false)
+                .collect(Collectors.toList());
     }
 
     public Player addPlayer(PlayerParams playerParams) {
