@@ -22,7 +22,7 @@ public class SnakeTest {
 
     @BeforeEach
     public void setUp(){
-        game = new Game();
+        game = new Game("TestPlayer");
         grid = new Grid();
     }
 

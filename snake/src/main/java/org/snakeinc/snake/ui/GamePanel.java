@@ -28,8 +28,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     private Game game;
     private boolean running = false;
     private Snake.Direction direction = Snake.Direction.R;
+    private final String playerName;
 
-    public GamePanel() {
+    public GamePanel(String playerName) {
+        this.playerName = playerName;
         this.setPreferredSize(new Dimension(GAME_PIXEL_WIDTH, GAME_PIXEL_HEIGHT));
         this.setBackground(Color.BLACK);
         this.setFocusable(true);
@@ -38,7 +40,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     }
 
     private void startGame() {
-        game = new Game();
+        game = new Game(playerName);
         timer = new Timer(100, this);
         timer.start();
         running = true;

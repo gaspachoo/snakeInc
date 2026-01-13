@@ -18,9 +18,12 @@ public class Game {
     private final Basket basket;
     private final Snake snake;
     private final SpawnStrategy strategy;
+    private final String playerName;
 
-    public Game() {
+    public Game(String playerName) {
         grid = new Grid();
+        this.playerName = playerName;
+
         var random = new Random();
         int strategy_rand = random.nextInt(0, 3);
         if (strategy_rand == 0) {
@@ -51,5 +54,4 @@ public class Game {
         snake.move(direction);
         basket.refillIfNeeded(3);
     }
-
 }
