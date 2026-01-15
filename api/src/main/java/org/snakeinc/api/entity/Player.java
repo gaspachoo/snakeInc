@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity @NoArgsConstructor(force = true)
 public class Player {
@@ -19,6 +21,9 @@ public class Player {
     @Getter
     private final LocalDateTime created_at;
 
+    @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Score> scores = new ArrayList<>();
+
     public Player(String name, int age){
         this.name = name;
         this.age = age;
@@ -28,5 +33,6 @@ public class Player {
             this.category = "Senior";
         }
         this.created_at = LocalDateTime.now();
+
     }
 }
