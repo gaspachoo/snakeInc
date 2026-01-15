@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.snakeinc.api.repository.PlayerRepo;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -17,19 +18,36 @@ import java.util.stream.StreamSupport;
 public class PlayerService {
     private final PlayerRepo playerRepo;
 
+    private PlayerDto mapToPlayerDto(Player player){
+        List<ScoreWithoutPlayerDto> scoresDto = player.getScores().stream().map(score -> new ScoreWithoutPlayerDto(
+                score.getId(),
+                score.getScore(),
+                score.getSnake(),
+                score.getPlayedAt()
+        )).toList();
+
+        return new PlayerDto(
+                player.getId(),
+                player.getName(),
+                player.getAge(),
+                player.getCategory(),
+                player.getCreated_at(),
+                scoresDto);
+    }
+
     public PlayerService(PlayerRepo playerRepo) {
         this.playerRepo = playerRepo;
     }
 
 
-    public Player getPlayer(int id) {
-        return playerRepo.findById(id)
+    public PlayerDto getPlayer(int id) {
+        return playerRepo.findById(id).map(this::mapToPlayerDto)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This player was not found"));
     }
 
-    public List<Player> getAllPlayers() {
-        return StreamSupport.stream(playerRepo.findAll().spliterator(), false)
-                .collect(Collectors.toList());
+    public List<PlayerDto> getAllPlayers() {
+        return StreamSupport.stream(playerRepo.findAll().spliterator(), false).map(this::mapToPlayerDto)
+                .toList();
     }
 
     public Player addPlayer(PlayerParams playerParams) {
@@ -53,5 +71,9 @@ public class PlayerService {
                 .toList());
     }
     public record StatsItem(String snake, int min, int max, double average) {}
-    public record StatsResponse(int playerId, List<PlayerService.StatsItem> stats) {}
+    public record StatsResponse(int playerId, List<StatsItem> stats) {}
+
+
+    public record PlayerDto(int id, String name, int age, String category, LocalDateTime createdAt, List<ScoreWithoutPlayerDto> scoresDto) {}
+    public record ScoreWithoutPlayerDto(int id, int score, String snake, LocalDateTime playedAt) {}
 }

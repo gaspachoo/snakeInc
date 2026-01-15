@@ -20,12 +20,12 @@ public class PlayersController {
     }
 
     @GetMapping
-    public List<Player> getAllPlayers() {
+    public List<PlayerService.PlayerDto> getAllPlayers() {
         return playerService.getAllPlayers();
     }
 
     @GetMapping("{id}")
-    public Player getAPlayer(@PathVariable int id) {
+    public PlayerService.PlayerDto getAPlayer(@PathVariable int id) {
         return playerService.getPlayer(id);
     }
 

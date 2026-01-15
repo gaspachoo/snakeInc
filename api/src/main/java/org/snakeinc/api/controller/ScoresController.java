@@ -23,7 +23,7 @@ public class ScoresController {
     }
 
     @GetMapping
-    public List<Score> getScores(
+    public List<ScoreService.ScoreDto> getScores(
             @RequestParam(name = "snake") String snake,
             @RequestParam(name = "player") int playerId
     ) {
@@ -32,7 +32,7 @@ public class ScoresController {
     }
 
     @GetMapping("best")
-    public Score getBestScore(@RequestParam(name = "snake") String snake) {
+    public ScoreService.ScoreDto getBestScore(@RequestParam(name = "snake") String snake) {
         return scoreService.getBestScoreBySnake(snake);
     }
 
