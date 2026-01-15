@@ -31,13 +31,6 @@ public class ScoresController {
         return scoreService.getScores(params);
     }
 
-    @GetMapping("stats/{id}")
-    public StatsResponse getStats(@PathVariable int id) {
-        return new StatsResponse(id, scoreService.getStats(id));
-    }
-    public record StatsResponse(int playerId, List<ScoreService.StatsItem> stats) {
-    }
-
     @GetMapping("best")
     public Score getBestScore(@RequestParam(name = "snake") String snake) {
         return scoreService.getBestScoreBySnake(snake);

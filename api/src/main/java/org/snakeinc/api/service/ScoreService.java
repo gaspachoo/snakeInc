@@ -29,24 +29,15 @@ public class ScoreService {
     }
 
     public List<Score> getScores(ScoreParams scoreParams) {
-        return scoreRepo.findBySnakeAndPlayer_Id(
+        return scoreRepo.findBySnakeAndPlayerId(
                 scoreParams.getSnake(),
                 scoreParams.getPlayerId()
         );
     }
 
-    public List<StatsItem> getStats(int playerId) {
-        Player player = playerRepo .findById(playerId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Player was not found"));
-        return player.getScores().stream()
-                .collect(Collectors.groupingBy(
-                        Score::getSnake, Collectors.summarizingDouble(Score::getScore))).
-                entrySet().stream()
-                .map(e -> new StatsItem(e.getKey(), (int) e.getValue().getMin(), (int) e.getValue().getMax(), e.getValue().getAverage()))
-                .toList();
-    }
-    public record StatsItem(String snake, int min, int max, double average) {}
-
     public Score getBestScoreBySnake(String snake) {
-        return scoreRepo.findBySnake(snake).stream().max(Comparator.comparing(Score::getScore)).orElseThrow(NoSuchElementException::new);
+        return scoreRepo.findBySnake(snake).stream().max(Comparator.comparing(Score::getScore)).orElse(null);
     }
+
+
 }

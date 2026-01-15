@@ -13,11 +13,11 @@ import java.time.format.DateTimeFormatter;
 public class ScoreDTO {
     private int score;
     private LocalDateTime playedAt;
-    private PlayerDTO player;
+    private PlayerDTO playerDTO;
 
     public String toString(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         String formattedDate = playedAt.format(formatter);
-        return score + ", on " + formattedDate + ", by " + player;
+        return score + ", on " + formattedDate + ", by " + playerDTO;
     }
 }

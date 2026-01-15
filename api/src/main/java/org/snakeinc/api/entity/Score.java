@@ -21,7 +21,7 @@ public class Score {
     @Getter
     private final LocalDateTime playedAt;
 
-    @Getter @ManyToOne
+    @Getter @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "player_id")
     private final Player player;
 

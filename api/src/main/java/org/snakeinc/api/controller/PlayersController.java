@@ -13,28 +13,33 @@ import java.util.List;
 @RequestMapping("api/v1/players")
 public class PlayersController {
 
-    private final PlayerService service;
+    private final PlayerService playerService;
 
-    public PlayersController(PlayerService service) {
-        this.service = service;
+    public PlayersController(PlayerService playerService) {
+        this.playerService = playerService;
     }
 
     @GetMapping
     public List<Player> getAllPlayers() {
-        return service.getAllPlayers();
+        return playerService.getAllPlayers();
     }
 
     @GetMapping("{id}")
     public Player getAPlayer(@PathVariable int id) {
-        return service.getPlayer(id);
+        return playerService.getPlayer(id);
     }
 
     @PostMapping
     public Player postPlayer(@RequestBody @Valid PlayerParams playerParams){
-        return service.addPlayer(playerParams);
+        return playerService.addPlayer(playerParams);
     }
     @DeleteMapping("{id}")
     public void deletePlayer(@PathVariable int id) {
-        service.deletePlayer(id);
+        playerService.deletePlayer(id);
+    }
+
+    @GetMapping("{id}/stats")
+    public PlayerService.StatsResponse getStats(@PathVariable int id) {
+        return playerService.getStats(id);
     }
 }
