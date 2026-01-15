@@ -77,7 +77,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         drawCentered(g, "With " + game.getSnake().getMoveCount() + " moves", y);
         drawCentered(g, "and " + game.getSnake().getEatCount() + " fruits eaten.", y+dy);
         drawCentered(g, "Actual best score for " + snakeName + " is : ", y+3*dy);
-        drawCentered(g, apiService.getBestScore(snakeName).toString(), y+4*dy);
+        String bestScoreText = apiService.getBestScore(snakeName) != null
+                ? apiService.getBestScore(snakeName).toString()
+                : "No best score yet";
+        drawCentered(g, bestScoreText, y+4*dy);
 
 
         if (!scoresSent) {
