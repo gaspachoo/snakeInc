@@ -67,13 +67,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         g.setColor(Color.RED);
         g.setFont(new Font("Arial", Font.BOLD, 20));
         FontMetrics metrics = getFontMetrics(g.getFont());
+        ApiService apiService = new ApiService();
+        String snakeName = getSnakeName();
         int y = GAME_PIXEL_HEIGHT / 2;
         int dy = metrics.getHeight();
         int score = game.getSnake().getMoveCount() + game.getSnake().getEatCount() + game.getSnake().getBonusCount();
-        drawCentered(g, "Game Over", y-2*dy);
-        drawCentered(g, "Your score : " + score, y);
-        drawCentered(g, "With " + game.getSnake().getMoveCount() + " moves", y+dy);
-        drawCentered(g, "and " + game.getSnake().getEatCount() + " fruits eaten.", y+2*dy);
+        drawCentered(g, "Game Over", y-3*dy);
+        drawCentered(g, "Your score : " + score, y-dy);
+        drawCentered(g, "With " + game.getSnake().getMoveCount() + " moves", y);
+        drawCentered(g, "and " + game.getSnake().getEatCount() + " fruits eaten.", y+dy);
+        drawCentered(g, "Actual best score for " + snakeName + " is : ", y+3*dy);
+        drawCentered(g, apiService.getBestScore(snakeName).toString(), y+4*dy);
+
 
         if (!scoresSent) {
             sendScore(score);
@@ -134,7 +139,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
                 break;
         }
 
-        // Apply state editMoves method
         Snake snake = game.getSnake();
         if (snake != null) {
             direction = snake.getState().editMoves(direction);

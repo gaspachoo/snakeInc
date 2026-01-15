@@ -2,7 +2,9 @@ package org.snakeinc.snake.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.snakeinc.snake.dto.PlayerDTO;
+import org.snakeinc.snake.dto.ScoreDTO;
 
 import java.io.IOException;
 import java.net.URI;
@@ -22,6 +24,7 @@ public class ApiService {
     public ApiService() {
         this.httpClient = HttpClient.newHttpClient();
         this.objectMapper = new ObjectMapper();
+        this.objectMapper.registerModule(new JavaTimeModule());
         this.objectMapper.configure(com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
@@ -73,6 +76,28 @@ public class ApiService {
             }
         } catch (IOException | InterruptedException e) {
             System.err.println("Error sending score: " + e.getMessage());
+        }
+    }
+
+    public ScoreDTO getBestScore(String snakeName){
+        try {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(BASE_URL + "/scores/best?snake=" + java.net.URLEncoder.encode(snakeName, java.nio.charset.StandardCharsets.UTF_8)))
+                    .GET()
+                    .build();
+
+            HttpResponse<String> response = httpClient.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() == 200) {
+                return objectMapper.readValue(response.body(), ScoreDTO.class);
+            } else {
+                System.err.println("Error fetching best score: " + response.statusCode());
+                return null;
+            }
+        } catch (IOException | InterruptedException e) {
+            System.err.println("Error connecting to API: " + e.getMessage());
+            return null;
         }
     }
 }
