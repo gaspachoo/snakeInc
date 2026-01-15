@@ -11,7 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service @Data
@@ -42,4 +44,8 @@ public class ScoreService {
                 .toList();
     }
     public record StatsItem(String snake, int min, int max, double average) {}
+
+    public Score getBestScoreBySnake(String snake) {
+        return scoreRepo.findBySnake(snake).stream().max(Comparator.comparing(Score::getScore)).orElseThrow(NoSuchElementException::new);
+    }
 }

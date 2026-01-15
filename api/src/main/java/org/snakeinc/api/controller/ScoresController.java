@@ -38,4 +38,9 @@ public class ScoresController {
     public record StatsResponse(int playerId, List<ScoreService.StatsItem> stats) {
     }
 
+    @GetMapping("best")
+    public Score getBestScore(@RequestParam(name = "snake") String snake) {
+        return scoreService.getBestScoreBySnake(snake);
+    }
+
 }
