@@ -36,7 +36,8 @@ public class ScoreService {
     }
 
     public List<StatsItem> getStats(int playerId) {
-        return scoreRepo.findByPlayer_Id(playerId).stream()
+        Player player = playerRepo .findById(playerId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Player was not found"));
+        return player.getScores().stream()
                 .collect(Collectors.groupingBy(
                         Score::getSnake, Collectors.summarizingDouble(Score::getScore))).
                 entrySet().stream()

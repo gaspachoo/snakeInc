@@ -22,6 +22,7 @@ public class Player {
     private final LocalDateTime created_at;
 
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Getter
     private List<Score> scores = new ArrayList<>();
 
     public Player(String name, int age){

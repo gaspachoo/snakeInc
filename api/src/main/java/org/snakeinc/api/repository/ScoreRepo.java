@@ -9,6 +9,5 @@ import java.util.List;
 @Repository
 public interface ScoreRepo extends CrudRepository<Score, Integer> {
     List<Score> findBySnakeAndPlayer_Id(String snake, int playerId);
-    List<Score> findByPlayer_Id(int playerId);
     List<Score> findBySnake(String snake);
 }

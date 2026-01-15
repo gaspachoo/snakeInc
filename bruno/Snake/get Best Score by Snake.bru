@@ -5,9 +5,13 @@ meta {
 }
 
 get {
-  url: {{base_url}}/api/v1/scores/best
+  url: {{base_url}}/api/v1/scores/best?snake=python
   body: none
   auth: inherit
+}
+
+params:query {
+  snake: python
 }
 
 settings {
