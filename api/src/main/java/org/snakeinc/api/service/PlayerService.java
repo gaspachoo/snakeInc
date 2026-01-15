@@ -19,7 +19,7 @@ public class PlayerService {
     private final PlayerRepo playerRepo;
 
     private PlayerDto mapToPlayerDto(Player player){
-        List<ScoreWithoutPlayerDto> scoresDto = player.getScores().stream().map(score -> new ScoreWithoutPlayerDto(
+        List<ScoreWithoutPlayerDto> scores = player.getScores().stream().map(score -> new ScoreWithoutPlayerDto(
                 score.getId(),
                 score.getScore(),
                 score.getSnake(),
@@ -32,7 +32,7 @@ public class PlayerService {
                 player.getAge(),
                 player.getCategory(),
                 player.getCreated_at(),
-                scoresDto);
+                scores);
     }
 
     public PlayerService(PlayerRepo playerRepo) {
@@ -74,6 +74,6 @@ public class PlayerService {
     public record StatsResponse(int playerId, List<StatsItem> stats) {}
 
 
-    public record PlayerDto(int id, String name, int age, String category, LocalDateTime createdAt, List<ScoreWithoutPlayerDto> scoresDto) {}
+    public record PlayerDto(int id, String name, int age, String category, LocalDateTime createdAt, List<ScoreWithoutPlayerDto> scores) {}
     public record ScoreWithoutPlayerDto(int id, int score, String snake, LocalDateTime playedAt) {}
 }
