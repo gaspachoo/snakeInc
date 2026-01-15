@@ -1,23 +1,17 @@
 meta {
-  name: get Player by id
+  name: del Player by id
   type: http
   seq: 3
 }
 
-get {
+delete {
   url: {{base_url}}/api/v1/players/:id
   body: json
   auth: inherit
 }
 
 params:path {
-  id: 1
-}
-
-body:json {
-  {
-      "name" : "Jean Louis"
-  }
+  id: 2
 }
 
 settings {

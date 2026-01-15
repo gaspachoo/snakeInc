@@ -1,13 +1,17 @@
 meta {
-  name: get all Players
+  name: get Player by id
   type: http
-  seq: 8
+  seq: 2
 }
 
 get {
-  url: {{base_url}}/api/v1/players
+  url: {{base_url}}/api/v1/players/:id
   body: json
   auth: inherit
+}
+
+params:path {
+  id: 1
 }
 
 body:json {
