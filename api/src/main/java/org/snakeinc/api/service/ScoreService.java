@@ -41,11 +41,11 @@ public class ScoreService {
         );
     }
 
-    public Score addScore(ScoreParams scoreParams) {
+    public ScoreDto addScore(ScoreParams scoreParams) {
         Player player = playerRepo.findById(scoreParams.getPlayerId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This player was not found"));
         Score score = new Score(scoreParams.getScore(), player, scoreParams.getSnake());
-        return scoreRepo.save(score);
+        return mapToScoreDto((scoreRepo.save(score)));
     }
 
     public List<ScoreDto> getScores(ScoreParams scoreParams) {

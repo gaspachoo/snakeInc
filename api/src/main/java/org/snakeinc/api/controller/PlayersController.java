@@ -30,7 +30,7 @@ public class PlayersController {
     }
 
     @PostMapping
-    public Player postPlayer(@RequestBody @Valid PlayerParams playerParams){
+    public PlayerService.PlayerDto postPlayer(@RequestBody @Valid PlayerParams playerParams){
         return playerService.addPlayer(playerParams);
     }
     @DeleteMapping("{id}")

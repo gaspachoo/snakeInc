@@ -50,9 +50,9 @@ public class PlayerService {
                 .toList();
     }
 
-    public Player addPlayer(PlayerParams playerParams) {
+    public PlayerDto addPlayer(PlayerParams playerParams) {
         Player player = new Player(playerParams.getName(), playerParams.getAge());
-        return playerRepo.save(player);
+        return mapToPlayerDto(playerRepo.save(player));
     }
 
     public void deletePlayer(int id) {

@@ -18,7 +18,7 @@ public class ScoresController {
     }
 
     @PostMapping
-    public Score addScore(@RequestBody @Valid ScoreParams scoreParams) {
+    public ScoreService.ScoreDto addScore(@RequestBody @Valid ScoreParams scoreParams) {
         return scoreService.addScore(scoreParams);
     }
 
