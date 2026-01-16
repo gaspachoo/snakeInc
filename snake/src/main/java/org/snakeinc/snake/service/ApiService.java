@@ -51,6 +51,36 @@ public class ApiService {
         }
     }
 
+
+    public PlayerDTO createPlayer(String name, int age) {
+        try {
+            Map<String, Object> playerPayload = new HashMap<>();
+            playerPayload.put("name", name);
+            playerPayload.put("age", age);
+
+            String jsonBody = objectMapper.writeValueAsString(playerPayload);
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(BASE_URL + "/players"))
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
+                    .build();
+
+            HttpResponse<String> response = httpClient.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() == 200 || response.statusCode() == 201) {
+                return objectMapper.readValue(response.body(), PlayerDTO.class);
+            } else {
+                System.err.println("Error sending player: " + response.statusCode());
+                return null;
+            }
+        } catch (IOException | InterruptedException e) {
+            System.err.println("Error sending player: " + e.getMessage());
+            return null;
+        }
+    }
+
     public void sendScore(int score, int playerId, String snakeName) {
         try {
             Map<String, Object> scorePayload = new HashMap<>();
