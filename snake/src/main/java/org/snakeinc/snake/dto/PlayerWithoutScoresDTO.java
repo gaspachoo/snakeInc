@@ -1,22 +1,17 @@
 package org.snakeinc.snake.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PlayerDTO {
+public class PlayerWithoutScoresDTO {
     private int id;
     private String name;
     private int age;
     private String category;
-    @JsonProperty("scores")
-    private List<ScoreWithoutPlayerDTO> scores;
 
     @Override
     public String toString() {
