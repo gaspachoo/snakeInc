@@ -162,7 +162,12 @@ public class PlayerSelectionPanel extends JPanel {
                 resetPlaceholders();
                 newPlayerButton.setEnabled(false);
             } else {
-                JOptionPane.showMessageDialog(this, "Unable to create player", "Error", JOptionPane.ERROR_MESSAGE);
+                String errorMsg = apiService.getLastErrorMessage();
+                if (errorMsg != null && !errorMsg.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Error: " + errorMsg, "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Unable to create player", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
     }

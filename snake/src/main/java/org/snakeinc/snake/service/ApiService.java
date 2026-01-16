@@ -3,6 +3,8 @@ package org.snakeinc.snake.service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import lombok.Getter;
+import org.snakeinc.snake.dto.ErrorResponse;
 import org.snakeinc.snake.dto.PlayerDTO;
 import org.snakeinc.snake.dto.ScoreDTO;
 
@@ -20,6 +22,8 @@ public class ApiService {
     private static final String BASE_URL = "http://localhost:8080/api/v1";
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
+    @Getter
+    private String lastErrorMessage;
 
     public ApiService() {
         this.httpClient = HttpClient.newHttpClient();
@@ -51,7 +55,6 @@ public class ApiService {
         }
     }
 
-
     public PlayerDTO createPlayer(String name, int age) {
         try {
             Map<String, Object> playerPayload = new HashMap<>();
@@ -70,13 +73,19 @@ public class ApiService {
                     HttpResponse.BodyHandlers.ofString());
 
             if (response.statusCode() == 200 || response.statusCode() == 201) {
+                lastErrorMessage = null;
                 return objectMapper.readValue(response.body(), PlayerDTO.class);
             } else {
-                System.err.println("Error sending player: " + response.statusCode());
+                try {
+                    ErrorResponse errorResponse = objectMapper.readValue(response.body(), ErrorResponse.class);
+                    lastErrorMessage = errorResponse.getMessage();
+                } catch (IOException parseError) {
+                    lastErrorMessage = response.body();
+                }
                 return null;
             }
         } catch (IOException | InterruptedException e) {
-            System.err.println("Error sending player: " + e.getMessage());
+            lastErrorMessage = e.getMessage();
             return null;
         }
     }
