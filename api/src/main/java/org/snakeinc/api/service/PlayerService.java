@@ -1,6 +1,7 @@
 package org.snakeinc.api.service;
 
 import lombok.Data;
+import lombok.Getter;
 import org.snakeinc.api.entity.Player;
 import org.snakeinc.api.entity.PlayerParams;
 import org.snakeinc.api.entity.Score;
@@ -10,6 +11,7 @@ import org.snakeinc.api.repository.PlayerRepo;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -19,7 +21,9 @@ public class PlayerService {
     private final PlayerRepo playerRepo;
 
     private PlayerDto mapToPlayerDto(Player player){
-        List<ScoreWithoutPlayerDto> scores = player.getScores().stream().map(score -> new ScoreWithoutPlayerDto(
+        List<ScoreWithoutPlayerDto> scores = player.getScores() == null
+                ? Collections.emptyList()
+                : player.getScores().stream().map(score -> new ScoreWithoutPlayerDto(
                 score.getId(),
                 score.getScore(),
                 score.getSnake(),
@@ -73,7 +77,6 @@ public class PlayerService {
     public record StatsItem(String snake, int min, int max, double average) {}
     public record StatsResponse(int playerId, List<StatsItem> stats) {}
 
-
-    public record PlayerDto(int id, String name, int age, String category, LocalDateTime createdAt, List<ScoreWithoutPlayerDto> scores) {}
+    public record PlayerDto(int id, @Getter String name, @Getter int age, String category, LocalDateTime createdAt, List<ScoreWithoutPlayerDto> scores) {}
     public record ScoreWithoutPlayerDto(int id, int score, String snake, LocalDateTime playedAt) {}
 }

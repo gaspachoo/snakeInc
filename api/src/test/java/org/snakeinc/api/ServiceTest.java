@@ -15,37 +15,48 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class ServiceTest {
 
     @Mock
     private PlayerRepo repo;
+    private final String NOM;
+    private final int AGE;
 
     @InjectMocks
     PlayerService service;
 
+    public ServiceTest(){
+        this.NOM = "Test";
+        this.AGE = 18;
+    }
+
     @Test
     public void testAddPlayer(){
-        PlayerParams playerParams = new PlayerParams("nom", 20);
+        PlayerParams playerParams = new PlayerParams(NOM, AGE);
+        Player persisted = new Player(NOM, AGE);
+        when(repo.save(any(Player.class))).thenReturn(persisted);
+
         service.addPlayer(playerParams);
 
         ArgumentCaptor<Player> captor = ArgumentCaptor.forClass(Player.class);
         verify(repo, times(1)).save(captor.capture());
         Player saved = captor.getValue();
-        assertEquals("nom", saved.getName());
-        assertEquals(20, saved.getAge());
+        assertEquals(NOM, saved.getName());
+        assertEquals(AGE, saved.getAge());
     }
 
     @Test
     public void testGetPlayers(){
-        Player expectedPlayer = new Player("nom", 20);
+        Player expectedPlayer = new Player(NOM,AGE);
         when(repo.findById(1)).thenReturn(Optional.of(expectedPlayer));
 
-        Player result = service.getPlayer(1);
+        PlayerService.PlayerDto result = service.getPlayer(1);
 
-        assertEquals("nom", result.getName());
-        assertEquals(20, result.getAge());
+        assertEquals(NOM, result.getName());
+        assertEquals(AGE, result.getAge());
         verify(repo, times(1)).findById(1);
     }
 
